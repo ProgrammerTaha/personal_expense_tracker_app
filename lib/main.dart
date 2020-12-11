@@ -20,6 +20,8 @@ class MyHomePage extends StatelessWidget {
         title: Text('Flutter App'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Card(
             child: Container(
@@ -32,7 +34,10 @@ class MyHomePage extends StatelessWidget {
             elevation: 5,
           ),
           Card(
-            child: Text('List of TX'),
+            color: Colors.cyanAccent,
+            child: Text(
+              'List of TX',
+            ),
           ),
         ],
       ),
