@@ -40,21 +40,22 @@ class MyHomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Card(
-            child: Container(
-              width: double.infinity,
+          Container(
+            width: double.infinity,
+            child: Card(
               child: Text(
                 'CHART',
               ),
+              color: Colors.lightBlue,
+              elevation: 5,
             ),
-            color: Colors.lightBlue,
-            elevation: 5,
           ),
-          Card(
-            color: Colors.cyanAccent,
-            child: Text(
-              'List of TX',
-            ),
+          Column(
+            children: transactions.map((tx) {
+              return Card(
+                child: Text(tx.title),
+              );
+            }).toList(),
           ),
         ],
       ),
