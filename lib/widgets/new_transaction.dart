@@ -36,9 +36,7 @@ class NewTransaction extends StatelessWidget {
               controller: titleController,
             ),
             TextField(
-              // android keyboardType: TextInputType.number,
-              // ios keyboardType: TextInputType.numberWithOptions(decimal: true),
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              keyboardType: TextInputType.number,
               onSubmitted: (_) => submitData(),
               decoration: InputDecoration(
                 labelText: 'amount',
