@@ -57,7 +57,7 @@ class _NewTransactionState extends State<NewTransaction> {
               child: Text(
                 'Add transaction',
               ),
-              textColor: Colors.purple,
+              textColor: Theme.of(context).accentColor,
             ),
           ],
         ),
