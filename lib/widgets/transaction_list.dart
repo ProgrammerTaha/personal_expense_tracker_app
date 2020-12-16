@@ -8,8 +8,9 @@ class TransactionList extends StatelessWidget {
   TransactionList(this.transactions, this.deleteTx);
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     return Container(
-      height: MediaQuery.of(context).size.height * 0.6,
+      height: mediaQuery.size.height * 0.6,
       child: transactions.isEmpty
           ? LayoutBuilder(
               builder: (ctx, constraints) {
@@ -42,7 +43,7 @@ class TransactionList extends StatelessWidget {
                     horizontal: 5,
                   ),
                   child: ListTile(
-                    trailing: MediaQuery.of(context).size.width > 412
+                    trailing: mediaQuery.size.width > 412
                         ? FlatButton.icon(
                             onPressed: () => deleteTx(transactions[index].id),
                             icon: Icon(
