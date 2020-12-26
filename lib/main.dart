@@ -24,36 +24,44 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Personal Expenses Tracker',
-      theme: ThemeData(
-        errorColor: Colors.red,
-        primarySwatch: Colors.purple,
-        accentColor: Colors.amber,
-        fontFamily: 'Quicksand',
+    final theme = ThemeData(
+      errorColor: Colors.red,
+      primarySwatch: Colors.purple,
+      accentColor: Colors.amber,
+      fontFamily: 'Quicksand',
+      textTheme: ThemeData.light().textTheme.copyWith(
+            headline6: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+            button: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+      appBarTheme: AppBarTheme(
         textTheme: ThemeData.light().textTheme.copyWith(
-              title: TextStyle(
+              headline6: TextStyle(
                 fontFamily: 'OpenSans',
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
-              button: TextStyle(
-                color: Colors.white,
-              ),
             ),
-        appBarTheme: AppBarTheme(
-          textTheme: ThemeData.light().textTheme.copyWith(
-                title: TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-        ),
       ),
-      home: MyHomePage(),
-      debugShowCheckedModeBanner: false,
     );
+    return Platform.isIOS
+        ? CupertinoApp(
+            home: MyHomePage(),
+            title: 'Personal Expenses Tracker',
+            debugShowCheckedModeBanner: false,
+            // theme: theme,
+          )
+        : MaterialApp(
+            title: 'Personal Expenses Tracker',
+            theme: theme,
+            home: MyHomePage(),
+            debugShowCheckedModeBanner: false,
+          );
   }
 }
 
@@ -170,54 +178,57 @@ class _MyHomePageState extends State<MyHomePage> {
         _deleteTransaction,
       ),
     );
-    final body = SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (isLandscape)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Show Chart',
-                ),
-                Switch.adaptive(
-                  activeColor: Theme.of(context).accentColor,
-                  value: _showChart,
-                  onChanged: (val) {
-                    setState(
-                      () {
-                        _showChart = val;
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
-          if (!isLandscape)
-            Container(
-              height: (mediaQuery.size.height -
-                      appBar.preferredSize.height -
-                      mediaQuery.padding.top) *
-                  0.3,
-              child: Chart(
-                _recentTransactions,
+    final body = SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Show Chart',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  Switch.adaptive(
+                    activeColor: Theme.of(context).accentColor,
+                    value: _showChart,
+                    onChanged: (val) {
+                      setState(
+                        () {
+                          _showChart = val;
+                        },
+                      );
+                    },
+                  ),
+                ],
               ),
-            ),
-          if (!isLandscape) txListWidget,
-          if (isLandscape)
-            _showChart
-                ? Container(
-                    height: (mediaQuery.size.height -
-                            appBar.preferredSize.height -
-                            mediaQuery.padding.top) *
-                        0.7,
-                    child: Chart(
-                      _recentTransactions,
-                    ),
-                  )
-                : txListWidget,
-        ],
+            if (!isLandscape)
+              Container(
+                height: (mediaQuery.size.height -
+                        appBar.preferredSize.height -
+                        mediaQuery.padding.top) *
+                    0.3,
+                child: Chart(
+                  _recentTransactions,
+                ),
+              ),
+            if (!isLandscape) txListWidget,
+            if (isLandscape)
+              _showChart
+                  ? Container(
+                      height: (mediaQuery.size.height -
+                              appBar.preferredSize.height -
+                              mediaQuery.padding.top) *
+                          0.7,
+                      child: Chart(
+                        _recentTransactions,
+                      ),
+                    )
+                  : txListWidget,
+          ],
+        ),
       ),
     );
 
