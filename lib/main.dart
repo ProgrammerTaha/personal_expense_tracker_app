@@ -126,9 +126,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print('build() MyHomePage');
     final PreferredSizeWidget appBar = Platform.isIOS
         ? CupertinoNavigationBar(
-            middle: Text(
+            middle: const Text(
               'Personal Expenses Tracker',
               style: TextStyle(
                 fontFamily: 'OpenSans',
@@ -149,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           )
         : AppBar(
-            title: Text(
+            title: const Text(
               'Personal Expenses Tracker',
               style: TextStyle(
                 fontFamily: 'OpenSans',

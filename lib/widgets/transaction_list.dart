@@ -5,9 +5,12 @@ import '../models/transaction.dart';
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
   final Function deleteTx;
-  TransactionList(this.transactions, this.deleteTx);
+  TransactionList(this.transactions, this.deleteTx) {
+    print('Constructor TransactionList');
+  }
   @override
   Widget build(BuildContext context) {
+    print('build() TransactionList');
     final mediaQuery = MediaQuery.of(context);
     return Container(
       height: mediaQuery.size.height * 0.6,
@@ -20,7 +23,7 @@ class TransactionList extends StatelessWidget {
                       'No transactions added yet',
                       style: Theme.of(context).textTheme.headline6,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
@@ -38,7 +41,7 @@ class TransactionList extends StatelessWidget {
               itemBuilder: (ctx, index) {
                 return Card(
                   elevation: 5,
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     vertical: 8,
                     horizontal: 5,
                   ),
@@ -46,16 +49,16 @@ class TransactionList extends StatelessWidget {
                     trailing: mediaQuery.size.width > 412
                         ? FlatButton.icon(
                             onPressed: () => deleteTx(transactions[index].id),
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.delete,
                             ),
-                            label: Text('Delete'),
+                            label: const Text('Delete'),
                             textColor: Theme.of(context).errorColor,
                           )
                         : IconButton(
                             color: Theme.of(context).errorColor,
                             onPressed: () => deleteTx(transactions[index].id),
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.delete,
                             ),
                           ),

@@ -7,7 +7,9 @@ class NewTransaction extends StatefulWidget {
   final Function addTx;
   NewTransaction(
     this.addTx,
-  );
+  ) {
+    print('Constructor NewTransaction');
+  }
 
   @override
   _NewTransactionState createState() => _NewTransactionState();
@@ -108,7 +110,7 @@ class _NewTransactionState extends State<NewTransaction> {
               ),
               RaisedButton(
                 onPressed: _submitData,
-                child: Text(
+                child: const Text(
                   'Add transaction',
                 ),
                 color: Theme.of(context).primaryColor,

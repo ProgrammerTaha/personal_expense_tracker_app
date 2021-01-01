@@ -9,9 +9,12 @@ class AdabtiveFlatButton extends StatelessWidget {
   AdabtiveFlatButton(
     this.text,
     this.handler,
-  );
+  ) {
+    print('Constructor AdabtiveFlatButton');
+  }
   @override
   Widget build(BuildContext context) {
+    print('build() AdabtiveFlatButton');
     return Platform.isIOS
         ? CupertinoButton(
             child: Text(
