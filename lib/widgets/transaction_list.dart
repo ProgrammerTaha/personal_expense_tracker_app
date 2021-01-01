@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../models/transaction.dart';
+import 'transaction_Item.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
@@ -39,53 +39,10 @@ class TransactionList extends StatelessWidget {
             )
           : ListView.builder(
               itemBuilder: (ctx, index) {
-                return Card(
-                  elevation: 5,
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 8,
-                    horizontal: 5,
-                  ),
-                  child: ListTile(
-                    trailing: mediaQuery.size.width > 412
-                        ? FlatButton.icon(
-                            onPressed: () => deleteTx(transactions[index].id),
-                            icon: const Icon(
-                              Icons.delete,
-                            ),
-                            label: const Text('Delete'),
-                            textColor: Theme.of(context).errorColor,
-                          )
-                        : IconButton(
-                            color: Theme.of(context).errorColor,
-                            onPressed: () => deleteTx(transactions[index].id),
-                            icon: const Icon(
-                              Icons.delete,
-                            ),
-                          ),
-                    leading: CircleAvatar(
-                      radius: 30,
-                      child: Padding(
-                        padding: const EdgeInsets.all(6),
-                        child: FittedBox(
-                          child: Text(
-                            '\$${transactions[index].amount.toStringAsFixed(2)}',
-                          ),
-                        ),
-                      ),
-                    ),
-                    title: Text(
-                      transactions[index].title,
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    subtitle: Text(
-                      DateFormat.yMMMMd().format(
-                        transactions[index].date,
-                      ),
-                      style: TextStyle(
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
+                return TransactionItem(
+                  mediaQuery: mediaQuery,
+                  deleteTx: deleteTx,
+                  transaction: transactions[index],
                 );
               },
               itemCount: transactions.length,
