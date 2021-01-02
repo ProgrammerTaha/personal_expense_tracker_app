@@ -70,7 +70,28 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    WidgetsBinding.instance.removeObserver(this);
+    print('initState()');
+    super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+    print('didChangeAppLifecycleState');
+    super.didChangeAppLifecycleState(state);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+    print('dispose()');
+  }
+
   final List<Transaction> _userTransactions = [];
 
   List<Transaction> get _recentTransactions {
@@ -102,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
       context: ctx,
-      builder: (_) {
+      builder: (context) {
         return GestureDetector(
           onTap: () {},
           behavior: HitTestBehavior.opaque,

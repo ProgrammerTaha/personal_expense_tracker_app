@@ -1,8 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/transaction.dart';
 
-class TransactionItem extends StatelessWidget {
+class TransactionItem extends StatefulWidget {
   const TransactionItem({
     Key key,
     @required this.mediaQuery,
@@ -15,6 +17,24 @@ class TransactionItem extends StatelessWidget {
   final Transaction transaction;
 
   @override
+  _TransactionItemState createState() => _TransactionItemState();
+}
+
+class _TransactionItemState extends State<TransactionItem> {
+  Color _bgColor;
+  @override
+  void initState() {
+    super.initState();
+    const availableColors = [
+      Colors.red,
+      Colors.blue,
+      Colors.green,
+      Colors.purple,
+    ];
+    _bgColor = availableColors[Random().nextInt(4)];
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
@@ -23,9 +43,9 @@ class TransactionItem extends StatelessWidget {
         horizontal: 5,
       ),
       child: ListTile(
-        trailing: mediaQuery.size.width > 412
+        trailing: widget.mediaQuery.size.width > 412
             ? FlatButton.icon(
-                onPressed: () => deleteTx(transaction.id),
+                onPressed: () => widget.deleteTx(widget.transaction.id),
                 icon: const Icon(
                   Icons.delete,
                 ),
@@ -34,29 +54,30 @@ class TransactionItem extends StatelessWidget {
               )
             : IconButton(
                 color: Theme.of(context).errorColor,
-                onPressed: () => deleteTx(transaction.id),
+                onPressed: () => widget.deleteTx(widget.transaction.id),
                 icon: const Icon(
                   Icons.delete,
                 ),
               ),
         leading: CircleAvatar(
+          backgroundColor: _bgColor,
           radius: 30,
           child: Padding(
             padding: const EdgeInsets.all(6),
             child: FittedBox(
               child: Text(
-                '\$${transaction.amount.toStringAsFixed(2)}',
+                '\$${widget.transaction.amount.toStringAsFixed(2)}',
               ),
             ),
           ),
         ),
         title: Text(
-          transaction.title,
+          widget.transaction.title,
           style: Theme.of(context).textTheme.headline6,
         ),
         subtitle: Text(
           DateFormat.yMMMMd().format(
-            transaction.date,
+            widget.transaction.date,
           ),
           style: TextStyle(
             color: Colors.grey,
